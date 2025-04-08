@@ -66,6 +66,14 @@ dependencies {
     // Import the BoM for the Firebase platform
     implementation(platform(libs.firebase.bom))
     implementation(libs.google.firebase.auth)
-//    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation(libs.androidx.credentials.v130)
+    implementation(libs.androidx.credentials.play.services.auth.v130)
+    implementation(libs.googleid)
+    implementation(platform(libs.firebase.bom))
+
+
+    implementation(libs.androidx.credentials.v130)
+    implementation(libs.androidx.credentials.play.services.auth.v130)
+
 
 }

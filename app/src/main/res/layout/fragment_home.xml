@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/lpulogo">
+    android:layout_height="match_parent">
+
+    <!-- Scrollable Course List -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lpulogo">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -238,7 +243,7 @@
 
                     <Button
                         android:id="@+id/androidbtn"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
@@ -256,4 +261,16 @@
 
         <!-- Add more courses here by copying & customizing the above CardView -->
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <!-- Floating Action Button for AI Assistant -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/aiAssistantButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:contentDescription="AI Assistant"
+        app:srcCompat="@drawable/ai"
+        android:backgroundTint="@color/white"/>
+</FrameLayout>

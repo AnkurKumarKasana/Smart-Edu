@@ -10,11 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.instagram.CourseDetailActivity
+import com.example.instagram.AIAssistantActivity
+import com.example.instagram.androiddetails
+import com.example.instagram.cppdetails
 import com.example.instagram.databinding.FragmentHomeBinding
+import com.example.instagram.javadetails
+import com.example.instagram.pythondetails
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-//import com.example.instagram.CourseDetailActivity // <-- Import your activity
 
 class HomeFragment : Fragment() {
 
@@ -35,24 +38,34 @@ class HomeFragment : Fragment() {
             fetchAndUpdateUserName()
         }
 
-        // ⬇️ Add Click Listeners for each "Get Started" button
+        // Course buttons
         binding.pythonbtn.setOnClickListener {
-            openCourseDetails("Python")
+            val intent = Intent(requireContext(), pythondetails::class.java)
+            startActivity(intent)
         }
 
         binding.javabtn.setOnClickListener {
-            openCourseDetails("Java")
+            val intent = Intent(requireContext(), javadetails::class.java)
+            startActivity(intent)
         }
 
         binding.cppbtn.setOnClickListener {
-            openCourseDetails("C++")
+            val intent = Intent(requireContext(), cppdetails::class.java)
+            startActivity(intent)
         }
 
         binding.androidbtn.setOnClickListener {
-            openCourseDetails("Android")
+            val intent = Intent(requireContext(), androiddetails::class.java)
+            startActivity(intent)
         }
 
 
+
+        // ✅ AI Assistant FAB click
+        binding.aiAssistantButton.setOnClickListener {
+            val intent = Intent(requireContext(), AIAssistantActivity::class.java)
+            startActivity(intent)
+        }
 
         return binding.root
     }
@@ -67,12 +80,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun openCourseDetails(courseName: String) {
-        val intent = Intent(requireContext(), CourseDetailActivity::class.java)
-        intent.putExtra("courseName", courseName)
-        startActivity(intent)
-    }
-
     private fun fetchAndUpdateUserName() {
         val uid = auth.currentUser?.uid ?: return
 
@@ -85,7 +92,11 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun startTypingAnimation(fullText: String, textView: android.widget.TextView, onComplete: (() -> Unit)? = null) {
+    private fun startTypingAnimation(
+        fullText: String,
+        textView: android.widget.TextView,
+        onComplete: (() -> Unit)? = null
+    ) {
         val delay: Long = 50
         var index = 0
 

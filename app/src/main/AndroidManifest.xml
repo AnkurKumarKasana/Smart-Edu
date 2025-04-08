@@ -13,9 +13,35 @@
         android:theme="@style/Theme.Instagram"
         tools:targetApi="31">
         <activity
+            android:name=".javadetails"
+            android:exported="false" />
+        <activity
+            android:name=".cppdetails"
+            android:exported="false" />
+        <activity
+            android:name=".androiddetails"
+            android:exported="false" />
+        <activity
+            android:name=".pythondetails"
+            android:exported="false" />
+        <activity
+            android:name=".hello"
+            android:exported="false" />
+        <activity
+            android:name=".CppCourseDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JavaCourseDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PythonCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AIAssistantActivity"
+            android:exported="false" />
+        <activity
             android:name=".CourseDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".AlreadyUserLogin"
             android:exported="false" />
