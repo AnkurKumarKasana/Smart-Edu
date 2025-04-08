@@ -24,21 +24,7 @@
         <activity
             android:name=".pythondetails"
             android:exported="false" />
-        <activity
-            android:name=".hello"
-            android:exported="false" />
-        <activity
-            android:name=".CppCourseDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".JavaCourseDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PythonCourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AIAssistantActivity"
-            android:exported="false" />
+
         <activity
             android:name=".CourseDetailActivity"
             android:exported="false" />

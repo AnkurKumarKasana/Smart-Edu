@@ -1,8 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)  // Ensure this matches the version in toml
-    alias(libs.plugins.google.gms.google.services)
-}
+            alias(libs.plugins.android.application)
+            alias(libs.plugins.kotlin.android)  // Ensure this matches the version in toml
+            alias(libs.plugins.google.gms.google.services)
+        }
 
 android {
     namespace = "com.example.instagram"
@@ -76,4 +76,4 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth.v130)
 
 
-}
+} 

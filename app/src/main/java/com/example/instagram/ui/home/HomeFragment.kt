@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.instagram.AIAssistantActivity
+import com.example.instagram.R
 import com.example.instagram.androiddetails
 import com.example.instagram.cppdetails
 import com.example.instagram.databinding.FragmentHomeBinding
@@ -66,6 +67,11 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), AIAssistantActivity::class.java)
             startActivity(intent)
         }
+        // Logout icon click handling
+        binding.logoutIcon.setOnClickListener {
+            showLogoutConfirmation()
+        }
+
 
         return binding.root
     }
@@ -114,6 +120,35 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
     }
+    private fun showLogoutConfirmation() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
+
+        val dialog = android.app.AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
+        val btnLogout = dialogView.findViewById<Button>(R.id.btn_logout)
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnLogout.setOnClickListener {
+            auth.signOut()
+            dialog.dismiss()
+            val intent = Intent(requireContext(), com.example.instagram.loginpage::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        dialog.show()
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -5,16 +5,16 @@
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back2"
     tools:context=".AlreadyUserLogin">
 
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="135dp"
+        android:layout_width="115dp"
         android:layout_height="88dp"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/smartedu"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,7 +78,7 @@
         android:layout_marginBottom="50dp"
         android:elevation="20dp"
         android:text="Create an Account"
-        android:textColor="@color/blue"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/presslogin"

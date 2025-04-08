@@ -4,17 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Scrollable Course List -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/lpulogo">
+        android:background="@drawable/back3">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
+
+
 
         <TextView
             android:id="@+id/welcomeText"
@@ -24,7 +28,19 @@
             android:text="Welcome, User"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/orange" />
+            android:textColor="#D93A3C" />
+
+        <ImageView
+            android:id="@+id/logoutIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="-35dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Logout"
+            android:padding="3dp"
+            android:src="@drawable/ic_logout" />
 
         <TextView
             android:id="@+id/offersHeading"
@@ -37,9 +53,10 @@
             android:layout_marginBottom="12dp"
             android:textColor="#000000" />
 
-        <!-- C++ Course -->
 
-        <!-- Python Course -->
+
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,10 +93,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Master Python for web, data science, and more"
-                        android:textSize="14sp"
                         android:layout_marginTop="4dp"
-                        android:textColor="#666666" />
+                        android:text="Master Python for web, data science, and more"
+                        android:textColor="#666666"
+                        android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/pythonbtn"
@@ -243,7 +260,7 @@
 
                     <Button
                         android:id="@+id/androidbtn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
@@ -273,4 +290,7 @@
         android:contentDescription="AI Assistant"
         app:srcCompat="@drawable/ai"
         android:backgroundTint="@color/white"/>
+
+
+
 </FrameLayout>
