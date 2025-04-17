@@ -1,24 +1,20 @@
 package com.example.instagram.ui.home
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.example.instagram.AIAssistantActivity
-import com.example.instagram.R
-import com.example.instagram.androiddetails
-import com.example.instagram.cppdetails
+import androidx.lifecycle.lifecycleScope
+import com.example.instagram.*
 import com.example.instagram.databinding.FragmentHomeBinding
-import com.example.instagram.javadetails
-import com.example.instagram.pythondetails
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.*
 
 class HomeFragment : Fragment() {
 
@@ -29,61 +25,62 @@ class HomeFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        startTypingAnimation(" ", binding.welcomeText) {
+        startTypingAnimation(" ") {
             fetchAndUpdateUserName()
         }
 
         // Course buttons
         binding.pythonbtn.setOnClickListener {
-            val intent = Intent(requireContext(), pythondetails::class.java)
-            startActivity(intent)
+            enrollCourse("Python")
+            startActivity(Intent(requireContext(), pythondetails::class.java))
         }
 
         binding.javabtn.setOnClickListener {
-            val intent = Intent(requireContext(), javadetails::class.java)
-            startActivity(intent)
+            enrollCourse("Java")
+            startActivity(Intent(requireContext(), javadetails::class.java))
         }
 
         binding.cppbtn.setOnClickListener {
-            val intent = Intent(requireContext(), cppdetails::class.java)
-            startActivity(intent)
+            enrollCourse("C++")
+            startActivity(Intent(requireContext(), cppdetails::class.java))
         }
 
         binding.androidbtn.setOnClickListener {
-            val intent = Intent(requireContext(), androiddetails::class.java)
-            startActivity(intent)
+            enrollCourse("Android")
+            startActivity(Intent(requireContext(), androiddetails::class.java))
         }
 
-
-
-        // ✅ AI Assistant FAB click
         binding.aiAssistantButton.setOnClickListener {
-            val intent = Intent(requireContext(), AIAssistantActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), AIAssistantActivity::class.java))
         }
-        // Logout icon click handling
+
         binding.logoutIcon.setOnClickListener {
             showLogoutConfirmation()
         }
 
-
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun enrollCourse(courseName: String) {
+        val uid = auth.currentUser?.uid ?: return
+        val userRef = db.collection("User").document(uid)
 
-        requireActivity().window.apply {
-            statusBarColor = Color.GRAY
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
+        userRef.update("enrolledCourses", FieldValue.arrayUnion(courseName))
+            .addOnSuccessListener {
+                sendNotification(courseName)
+            }
+    }
+
+    private fun sendNotification(courseName: String) {
+        val notification = hashMapOf(
+            "message" to "You are now enrolled in $courseName"
+        )
+        db.collection("Notifications").add(notification)
     }
 
     private fun fetchAndUpdateUserName() {
@@ -93,37 +90,33 @@ class HomeFragment : Fragment() {
             .addOnSuccessListener { document ->
                 val name = document.getString("name")
                 if (!name.isNullOrEmpty()) {
-                    startTypingAnimation("Welcome, $name", binding.welcomeText)
+                    // Check if binding is still valid
+                    _binding?.let {
+                        startTypingAnimation("Welcome, $name")
+                    }
                 }
             }
     }
 
     private fun startTypingAnimation(
         fullText: String,
-        textView: android.widget.TextView,
         onComplete: (() -> Unit)? = null
     ) {
-        val delay: Long = 50
-        var index = 0
-
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = object : Runnable {
-            override fun run() {
-                if (index <= fullText.length) {
-                    textView.text = fullText.substring(0, index)
-                    index++
-                    handler.postDelayed(this, delay)
-                } else {
-                    onComplete?.invoke()
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            val delayMillis = 50L
+            var index = 0
+            while (index <= fullText.length && _binding != null) {
+                _binding?.welcomeText?.text = fullText.substring(0, index)
+                index++
+                delay(delayMillis)
             }
+            onComplete?.invoke()
         }
-        handler.post(runnable)
     }
+
     private fun showLogoutConfirmation() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
-
-        val dialog = android.app.AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(false)
             .create()
@@ -133,22 +126,17 @@ class HomeFragment : Fragment() {
         val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
         val btnLogout = dialogView.findViewById<Button>(R.id.btn_logout)
 
-        btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-
+        btnCancel.setOnClickListener { dialog.dismiss() }
         btnLogout.setOnClickListener {
             auth.signOut()
             dialog.dismiss()
-            val intent = Intent(requireContext(), com.example.instagram.loginpage::class.java)
+            val intent = Intent(requireContext(), loginpage::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         dialog.show()
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         window.statusBarColor = Color.TRANSPARENT
+
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, loginpage::class.java))
             finish()

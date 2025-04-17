@@ -70,10 +70,14 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth.v130)
     implementation(libs.googleid)
     implementation(platform(libs.firebase.bom))
-
+    implementation (libs.lottie)
 
     implementation(libs.androidx.credentials.v130)
     implementation(libs.androidx.credentials.play.services.auth.v130)
+
+    implementation(libs.youtube.player)
+
+
 
 
 } 

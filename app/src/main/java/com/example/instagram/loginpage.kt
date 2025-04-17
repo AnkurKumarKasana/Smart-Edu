@@ -6,6 +6,7 @@ import android.text.Html
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.example.instagram.Models.usermodel
 import com.example.instagram.databinding.ActivityLoginpageBinding
 import com.google.android.gms.auth.api.signin.*
@@ -108,6 +109,7 @@ class loginpage : AppCompatActivity() {
             }
         }
     }
+
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)

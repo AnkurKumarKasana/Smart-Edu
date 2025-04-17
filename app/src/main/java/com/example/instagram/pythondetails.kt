@@ -1,7 +1,9 @@
 package com.example.instagram
-
+import android.content.Intent
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+
 
 class pythondetails : AppCompatActivity() {
 
@@ -9,6 +11,17 @@ class pythondetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pythondetails)
 
-        // TODO: Add Android course-specific logic here, e.g., button listeners for PDFs, videos, queries, etc.
+        val videoBtn = findViewById<LinearLayout>(R.id.pythonvideobtn)
+        val pdfBtn = findViewById<LinearLayout>(R.id.pythonpdfbtn) // You must add this id in XML
+
+        videoBtn.setOnClickListener {
+            val intent = Intent(this, PythonVideosActivity::class.java)
+            startActivity(intent)
+        }
+
+        pdfBtn.setOnClickListener {
+            val intent = Intent(this, PythonPdfActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

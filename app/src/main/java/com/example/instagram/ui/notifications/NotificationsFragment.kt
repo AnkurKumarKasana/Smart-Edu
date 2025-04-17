@@ -6,32 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.instagram.databinding.FragmentNotificationsBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+    private val db = FirebaseFirestore.getInstance()
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val notificationTextView: TextView = binding.notificationTextView
+
+        db.collection("Notifications").addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                notificationTextView.text = "Error fetching notifications."
+                return@addSnapshotListener
+            }
+
+            val notifications = snapshot?.documents?.map { it.getString("message") } ?: emptyList()
+            notificationTextView.text = notifications.joinToString("\n")
         }
+
         return root
     }
 

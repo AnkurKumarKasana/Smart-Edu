@@ -37,6 +37,7 @@
         app:cardElevation="6dp">
 
         <LinearLayout
+            android:id="@+id/pythonpdfbtn"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center_vertical"
@@ -88,7 +89,7 @@
         app:cardElevation="6dp">
 
         <LinearLayout
-            android:id="@+id/videoBtn"
+            android:id="@+id/pythonvideobtn"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center_vertical"
