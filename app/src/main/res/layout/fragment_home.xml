@@ -25,9 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="30dp"
+            android:fontFamily="@font/newfont"
             android:text="Welcome, User"
             android:textSize="22sp"
-            android:textStyle="bold"
+
             android:textColor="#D93A3C" />
 
         <ImageView

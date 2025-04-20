@@ -1,59 +1,69 @@
 package com.example.instagram
 
+import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
-import android.widget.TextView
-import android.widget.VideoView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
+data class VideoItem(val title: String = "", val description: String = "", val videoUrl: String = "")
+
 class VideoAdapter(
-    private val videoUrls: List<String>,
-    private val descriptions: List<String>,
-    private val initialWatchedCount: Int,
-    private val onVideoWatched: () -> Unit
+    private val context: Context,
+    private val videoList: List<VideoItem>,
+    private var watchedCount: Int,
+    private val onWatched: () -> Unit
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
-    private val watchedSet = mutableSetOf<String>()
-
-    init {
-        // Assume first N videos were already watched
-        for (i in 0 until initialWatchedCount.coerceAtMost(videoUrls.size)) {
-            watchedSet.add(videoUrls[i])
-        }
-    }
-
-    class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val videoTitle: TextView = view.findViewById(R.id.videoTitle)
+        val videoDescription: TextView = view.findViewById(R.id.videoDescription)
+        val videoThumbnail: ImageView = view.findViewById(R.id.videoThumbnail)
+        val playButton: ImageView = view.findViewById(R.id.playButton)
         val videoView: VideoView = view.findViewById(R.id.videoView)
-        val descriptionText: TextView = view.findViewById(R.id.videoDescription)
-        val videoOrder: TextView = view.findViewById(R.id.videoOrder)
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false)
-        return VideoViewHolder(view)
-    }
+        fun bind(video: VideoItem, position: Int) {
+            videoTitle.text = video.title
+            videoDescription.text = video.description
 
-    override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        val videoUrl = videoUrls[position]
-        val description = descriptions[position]
+            // Load thumbnail from Cloudinary or fallback image
 
-        holder.videoOrder.text = "Video ${position + 1}"
-        holder.descriptionText.text = description
-        val uri = Uri.parse(videoUrl)
 
-        holder.videoView.setVideoURI(uri)
-        val mediaController = MediaController(holder.itemView.context)
-        mediaController.setAnchorView(holder.videoView)
-        holder.videoView.setMediaController(mediaController)
+            playButton.setOnClickListener {
+                videoThumbnail.visibility = View.GONE
+                playButton.visibility = View.GONE
+                videoView.visibility = View.VISIBLE
 
-        holder.videoView.setOnCompletionListener {
-            if (watchedSet.add(videoUrl)) {
-                onVideoWatched()
+                val mediaController = MediaController(context)
+                mediaController.setAnchorView(videoView)
+                videoView.setMediaController(mediaController)
+                videoView.setVideoURI(Uri.parse(video.videoUrl))
+                videoView.requestFocus()
+                videoView.start()
+
+                // Update progress only once per new video
+                if (position == watchedCount) {
+                    watchedCount++
+                    onWatched()
+                }
             }
         }
     }
 
-    override fun getItemCount(): Int = videoUrls.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.video_item_layout, parent, false)
+        return VideoViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
+        holder.bind(videoList[position], position)
+    }
+
+    override fun getItemCount(): Int = videoList.size
+
+
 }

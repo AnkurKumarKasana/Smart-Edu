@@ -51,13 +51,17 @@ class loginpage : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // 🟩 Email/Password Sign-Up
-        binding.SignUpBtn.setOnClickListener {
-            if (binding.name.text?.toString().isNullOrEmpty() ||
-                binding.email.text?.toString().isNullOrEmpty() ||
-                binding.password.text?.toString().isNullOrEmpty()
-            ) {
-                Toast.makeText(this@loginpage, "Please fill all the above information", Toast.LENGTH_SHORT).show()
+        binding.SignUpBtn.setOnClickListener {val name = binding.name.text.toString()
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val confirmPassword = binding.cnfpassword.text.toString()
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(this@loginpage, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+            } else if (password != confirmPassword) {
+                Toast.makeText(this@loginpage, "Passwords do not match", Toast.LENGTH_SHORT).show()
             } else {
+
                 firebaseAuth.createUserWithEmailAndPassword(
                     binding.email.text.toString(),
                     binding.password.text.toString()

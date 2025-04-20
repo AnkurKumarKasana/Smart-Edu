@@ -20,7 +20,9 @@ class AlreadyUserLogin : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-
+        binding.forgotPasswordText.setOnClickListener {
+            startActivity(Intent(this, forgetpassword::class.java))
+        }
         binding.presslogin.setOnClickListener {
             val email = binding.emailEditText.text?.toString()?.trim()
             val password = binding.passwordEditText.text?.toString()?.trim()

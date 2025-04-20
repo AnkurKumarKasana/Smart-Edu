@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.cardview)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -76,6 +77,9 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth.v130)
 
     implementation(libs.youtube.player)
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+    implementation(libs.google.services)
 
 
 
