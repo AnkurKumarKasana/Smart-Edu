@@ -1,49 +1,69 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/videoCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_margin="12dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="6dp">
 
-    <TextView
-        android:id="@+id/videoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Video Title"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_marginBottom="4dp" />
-
-    <TextView
-        android:id="@+id/videoDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Video Description"
-        android:textSize="14sp"
-        android:layout_marginBottom="8dp" />
-
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="match_parent"
+        android:padding="12dp">
 
+        <!-- Thumbnail Image -->
+
+        <!-- Play Button -->
         <ImageView
             android:id="@+id/videoThumbnail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="#000000" />
+            android:layout_height="200dp"
+
+            android:scaleType="centerInside"
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/playButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:src="@android:drawable/ic_media_play"
-            android:background="@android:color/transparent" />
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_play"
+            android:padding="14dp"
+            android:src="@drawable/ic_play"
+            android:visibility="visible" />
 
+        <!-- VideoView (initially hidden) -->
         <VideoView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:visibility="gone" />
-    </FrameLayout>
-</LinearLayout>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/videoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/videoThumbnail"
+            android:layout_marginTop="10dp"
+            android:text="Video Title"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/videoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/videoTitle"
+            android:layout_marginTop="10dp"
+            android:text="Video Description"
+            android:textColor="#444444"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -4,42 +4,77 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.instagram.databinding.FragmentNotificationsBinding
+import com.example.instagram.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class NotificationsFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
-    private val binding get() = _binding!!
-
+    private lateinit var listView: ListView
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private val messages = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val view = inflater.inflate(R.layout.fragment_notifications, container, false)
+        listView = view.findViewById(R.id.notificationListView)
 
-        val notificationTextView: TextView = binding.notificationTextView
+        fetchUserNotifications()
+        fetchDoubtReplies()
 
-        db.collection("Notifications").addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                notificationTextView.text = "Error fetching notifications."
-                return@addSnapshotListener
-            }
-
-            val notifications = snapshot?.documents?.map { it.getString("message") } ?: emptyList()
-            notificationTextView.text = notifications.joinToString("\n")
-        }
-
-        return root
+        return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun fetchUserNotifications() {
+        val currentUserEmail = auth.currentUser?.email ?: return
+
+        db.collection("Enrollments")
+            .whereEqualTo("userEmail", currentUserEmail)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val courseName = document.getString("course")
+                    // Add to bottom
+                    messages.add("✅ You are enrolled in $courseName")
+                }
+                updateListView()
+            }
+    }
+
+    private fun fetchDoubtReplies() {
+        val currentUserId = auth.currentUser?.uid ?: return
+
+        db.collection("doubts")
+            .whereEqualTo("userId", currentUserId)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val reply = document.getString("reply")
+                    val course = document.getString("course")
+                    if (!reply.isNullOrBlank()) {
+                        // Add replies to top
+                        messages.add(0, "📢 Reply from Ankur Gurjar $course: $reply")
+                    }
+                }
+                updateListView()
+            }
+    }
+
+    private fun updateListView() {
+        // Prevent crash if fragment is not attached
+        if (!isAdded || context == null) return
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            messages
+        )
+        listView.adapter = adapter
     }
 }

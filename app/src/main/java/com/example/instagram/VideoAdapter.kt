@@ -9,7 +9,12 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-data class VideoItem(val title: String = "", val description: String = "", val videoUrl: String = "")
+data class VideoItem(
+    val title: String = "",
+    val description: String = "",
+    val videoUrl: String = "",
+    val thumbnail: String = "" // Add thumbnail field here
+)
 
 class VideoAdapter(
     private val context: Context,
@@ -29,9 +34,17 @@ class VideoAdapter(
             videoTitle.text = video.title
             videoDescription.text = video.description
 
-            // Load thumbnail from Cloudinary or fallback image
+            // Load thumbnail using Glide
+            if (video.thumbnail.isNotEmpty()) {
+                Glide.with(context)
+                    .load(video.thumbnail)
+                    .placeholder(R.drawable.thumbnail_placeholder)
+                    .into(videoThumbnail)
+            } else {
+                videoThumbnail.setImageResource(R.drawable.thumbnail_placeholder)
+            }
 
-
+            // Set play button click
             playButton.setOnClickListener {
                 videoThumbnail.visibility = View.GONE
                 playButton.visibility = View.GONE
@@ -64,6 +77,4 @@ class VideoAdapter(
     }
 
     override fun getItemCount(): Int = videoList.size
-
-
 }

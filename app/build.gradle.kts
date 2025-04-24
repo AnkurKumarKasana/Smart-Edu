@@ -80,8 +80,7 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
     implementation(libs.google.services)
-
-
-
-
+    implementation (libs.okhttp)
+    implementation (libs.okio)
+    implementation (libs.gson)
 } 

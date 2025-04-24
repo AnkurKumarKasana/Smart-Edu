@@ -5,4 +5,7 @@
     <color name="pink">#C13584</color>
     <color name="blue">#1E88E5</color>
     <color name="orange">#F2831A</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="userBubble">#DCF8C6</color>
+    <color name="aiBubble">#F1F0F0</color>
 </resources>

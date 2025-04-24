@@ -68,20 +68,33 @@ class HomeFragment : Fragment() {
 
     private fun enrollCourse(courseName: String) {
         val uid = auth.currentUser?.uid ?: return
+        val userEmail = auth.currentUser?.email ?: "unknown@example.com"
         val userRef = db.collection("User").document(uid)
 
+// Add course to user's enrolledCourses array
         userRef.update("enrolledCourses", FieldValue.arrayUnion(courseName))
             .addOnSuccessListener {
                 sendNotification(courseName)
+
+                // Save individual enrollment to "Enrollments" collection
+                val enrollmentData = hashMapOf(
+                    "course" to courseName,
+                    "userEmail" to userEmail,
+                    "userId" to uid,
+                    "timestamp" to FieldValue.serverTimestamp()
+                )
+                db.collection("Enrollments").add(enrollmentData)
             }
     }
 
     private fun sendNotification(courseName: String) {
         val notification = hashMapOf(
-            "message" to "You are now enrolled in $courseName"
+            "message" to "You are now enrolled in $courseName",
+            "timestamp" to FieldValue.serverTimestamp()
         )
         db.collection("Notifications").add(notification)
     }
+
 
     private fun fetchAndUpdateUserName() {
         val uid = auth.currentUser?.uid ?: return

@@ -1,6 +1,9 @@
 package com.example.instagram
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 
 class javadetails : AppCompatActivity() {
@@ -9,6 +12,11 @@ class javadetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_javadetails)
 
-        // TODO: Add Android course-specific logic here, e.g., button listeners for PDFs, videos, queries, etc.
+        val doubt= findViewById<LinearLayout>(R.id.JavaDoubtBtn)
+
+        doubt.setOnClickListener {
+            val intent = Intent(this, pythondoubt::class.java)
+            startActivity(intent)
+        }
     }
 }
