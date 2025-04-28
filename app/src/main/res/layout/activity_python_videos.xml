@@ -5,6 +5,16 @@
     android:orientation="vertical"
     android:padding="12dp">
 
+    <TextView
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/new2"
+        android:text="E x p l o r e   P y t h o n   V i d e o   L e c t u r e s"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
