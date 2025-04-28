@@ -9,12 +9,6 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-data class VideoItem(
-    val title: String = "",
-    val description: String = "",
-    val videoUrl: String = "",
-    val thumbnail: String = "" // Add thumbnail field here
-)
 
 class VideoAdapter(
     private val context: Context,
@@ -22,8 +16,11 @@ class VideoAdapter(
     private var watchedCount: Int,
     private val onWatched: () -> Unit
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
+    private var currentlyPlayingVideoView: VideoView? = null
 
     inner class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        val tickImage: ImageView = view.findViewById(R.id.tickImage)
         val videoTitle: TextView = view.findViewById(R.id.videoTitle)
         val videoDescription: TextView = view.findViewById(R.id.videoDescription)
         val videoThumbnail: ImageView = view.findViewById(R.id.videoThumbnail)
@@ -44,8 +41,22 @@ class VideoAdapter(
                 videoThumbnail.setImageResource(R.drawable.thumbnail_placeholder)
             }
 
-            // Set play button click
+            // Show/hide tick based on watch progress
+            if (position < watchedCount) {
+                tickImage.visibility = View.VISIBLE
+            } else {
+                tickImage.visibility = View.GONE
+            }
+
             playButton.setOnClickListener {
+                // First, stop the currently playing video (if any)
+                currentlyPlayingVideoView?.let { video ->
+                    if (video.isPlaying) {
+                        video.stopPlayback()
+                        video.visibility = View.GONE
+                    }
+                }
+
                 videoThumbnail.visibility = View.GONE
                 playButton.visibility = View.GONE
                 videoView.visibility = View.VISIBLE
@@ -57,13 +68,18 @@ class VideoAdapter(
                 videoView.requestFocus()
                 videoView.start()
 
-                // Update progress only once per new video
+                // Update the currently playing videoView
+                currentlyPlayingVideoView = videoView
+
                 if (position == watchedCount) {
                     watchedCount++
                     onWatched()
+                    tickImage.visibility = View.VISIBLE
                 }
             }
+
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
