@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import com.example.instagram.HomeActivity
 import com.example.instagram.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,6 +25,9 @@ class NotificationsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
         listView = view.findViewById(R.id.notificationListView)
+
+        // Reset badge when user opens this tab
+        (activity as? HomeActivity)?.resetNotificationBadge()
 
         fetchUserNotifications()
         fetchDoubtReplies()

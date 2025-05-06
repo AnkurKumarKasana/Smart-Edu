@@ -56,6 +56,7 @@ class loginpage : AppCompatActivity() {
             val password = binding.password.text.toString()
             val confirmPassword = binding.cnfpassword.text.toString()
 
+
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this@loginpage, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             } else if (password != confirmPassword) {
