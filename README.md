@@ -2,7 +2,7 @@
 
 Smart Edu is a powerful, modern Android app built to transform the e-learning experience for students. With smooth UI, engaging course content, AI chatbot support, and Firebase integration, it's a complete smart education platform designed for learning on the go.
 
-![Smart Edu Banner](https://drive.google.com/file/d/14WZkFOF9FuYRKn0oC8luIsrhvQV91Sqy/view?usp=sharing)](https://drive.google.com/file/d/14WZkFOF9FuYRKn0oC8luIsrhvQV91Sqy/view?usp=sharing) <!-- Optional: Replace with your image -->
+[https://pplx-res.cloudinary.com/image/upload/v1749883772/gpt4o_images/kvhkxvx6kpblgwyqk7fb.png] <!-- Optional: Replace with your image -->
 
 ---
 
