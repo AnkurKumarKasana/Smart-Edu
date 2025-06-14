@@ -87,24 +87,24 @@ val apiKey = "YOUR_GEMINI_API_KEY"
 
 Coming Soon – Add your app screenshots here.
 
-##💡 Inspiration
+## 💡 Inspiration
 
 This app is inspired by the need to make education accessible, engaging, and smart. With AI assistance and seamless integration of learning materials, Smart Edu brings classroom learning to mobile devices.
 
-##✍️ Author
+## ✍️ Author
 Ankur Kumar Kasana
 Connect on LinkedIn • [[Mail: ankurgurjar@example.com](https://www.linkedin.com/in/ankurgurjar/)](https://www.linkedin.com/in/ankurgurjar/)
 
-##🌟 Show Your Support
+## 🌟 Show Your Support
 If you like this project:
 
-##⭐ Star this repo
+## ⭐ Star this repo
 
-##📤 Fork and contribute
+## 📤 Fork and contribute
 
-##🧑‍💻 Share your feedback and suggestions
+## 🧑‍💻 Share your feedback and suggestions
 
-##📄 License
+## 📄 License
 ---
 This project is licensed under the MIT License - see the LICENSE file for details.
 ---
