@@ -47,3 +47,84 @@ Smart Edu is a powerful, modern Android app built to transform the e-learning ex
    ```bash
    git clone https://github.com/AnkurKumarKasana/Smart-Edu.git
    cd Smart-Edu
+   Open the project in Android Studio.
+
+Set up your Firebase project:
+
+Add your google-services.json
+
+Enable Authentication, Firestore, and Realtime Database
+
+Set Firestore & RTDB Rules:
+
+js
+Copy
+Edit
+// Firestore (Development)
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+json
+Copy
+Edit
+// Realtime Database (Development)
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+Add your Gemini API key:
+
+kotlin
+Copy
+Edit
+val apiKey = "YOUR_GEMINI_API_KEY"
+Add Cloudinary video links to Firestore or Realtime DB under course video nodes.
+
+🎥 Screenshots
+Coming Soon – Add your app screenshots here.
+
+💡 Inspiration
+This app is inspired by the need to make education accessible, engaging, and smart. With AI assistance and seamless integration of learning materials, Smart Edu brings classroom learning to mobile devices.
+
+✍️ Author
+Ankur Kumar Kasana
+Connect on LinkedIn • Mail: ankurgurjar@example.com
+
+🌟 Show Your Support
+If you like this project:
+
+⭐ Star this repo
+
+📤 Fork and contribute
+
+🧑‍💻 Share your feedback and suggestions
+
+📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+yaml
+Copy
+Edit
+
+---
+
+Would you like me to generate a **custom banner image** for the top of the README (with your app name and icons)? Or help write a **Contributing.md** or a **LICENSE file** too?
+
+
+
+
+
+
+
+
+
+Tools
+
+
+
