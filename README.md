@@ -105,20 +105,7 @@ If you like this project:
 ## 🧑‍💻 Share your feedback and suggestions
 
 ## 📄 License
----
 This project is licensed under the MIT License - see the LICENSE file for details.
----
-Would you like me to generate a **custom banner image** for the top of the README (with your app name and icons)? Or help write a **Contributing.md** or a **LICENSE file** too?
-
-
-
-
-
-
-
-
-
-Tools
 
 
 
