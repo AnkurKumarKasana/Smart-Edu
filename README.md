@@ -104,8 +104,4 @@ If you like this project:
 
 ## 🧑‍💻 Share your feedback and suggestions
 
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-
 
